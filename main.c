@@ -1,6 +1,7 @@
 /* Temperature control system - O.S.
  * Works with MSP430G2x53 Launchpad and UsluKukla (44 Booster)
  * Basic flow explained in appended flowchart
+ * Schematics for UsluKukla are in ./booster_docs
  *
  * Usage: IMPORTANT: Short the second and third heads of JP101 to use the thermistor.
  *        IMPORTANT: Short the heads of JP201 for the buzzer to work for threshold warnings
@@ -11,9 +12,9 @@
  *        When the voltage set by the potentiometer is exceeded, the buzzer vibrates to give an alarm
  *        The buzzer routine can be used as a driver for a motor, if one is mounted on H202; it is connected to P1.6
  *
- * Notes: 7Seg will not show a minus sign, no info given on the screen for the sign the temperature goes below 0 Celcius.
+ * Notes: 7Seg will not show a minus sign, no info given on the screen for the sign if the temperature goes below 0 Celcius.
  *        Also, if the temperature exceeds 99.99 Celcius, the hundreds digit will not show on the screen
- *        This can be solved by printing values in Celcius proper in XXX.X format using the dots of the 7Seg
+ *        This can be solved by printing values in Celcius proper, in XXX.X format using the dots of the 7Seg
  *        (The decimal dots are activated by flipping the least sig.fig. of a char to 1)
  *        If voltage of P1.3 is zeroed out, the 7Seg gets scrambled if the code is compiled with READ_VOLTAGE_OR_DEG 0
  *        The code is not optimized for low power usage
@@ -31,7 +32,7 @@
 #define WAIT_TIME 200                          // Wait time cycles
 #define TIMER_MOD_COEFF 1/(2*SOUND_DELAY)     // Readjustment for matching desired time in ms for beep duration
 #define BEEP_TIME_MOD BEEP_TIME*TIMER_MOD_COEFF  // Beep time in cycles, corrected
-#define VOLTAGE_COEFF 2.96                   // Coeff for converting reading to voltage times 1000, theo:3.22, exper: 2.95
+#define VOLTAGE_COEFF 2.96                   // Coeff for converting reading to voltage times 1000, theo:3.22, exper: 2.96
 #define EMPTY_X 10                       // Refers to the all-clear character
 
 // Thermistor parameters for Steinhart-Hart Eqn
